@@ -7,6 +7,8 @@ export default function Form() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPass, setConfirmPass] = useState('')
+
+  const handleSubmit = async () => {}
   return (
     <section className="w-80 h-96 bg-zinc-800 rounded-lg px-2 flex flex-col items-center gap-8">
       <h2 className="text-2xl font-bold text-zinc-300 mt-2">Cadastrar</h2>
