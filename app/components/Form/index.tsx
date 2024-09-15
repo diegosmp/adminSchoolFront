@@ -1,24 +1,12 @@
-'use client'
-
 import api from '@/app/api/api'
 import { redirect } from 'next/navigation'
-import { useState } from 'react'
 
 export default function Form() {
-  const [fullname, setFullname] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPass, setConfirmPass] = useState('')
-
   const handleSubmit = async (formData: FormData) => {
+    'use server'
     const fullname = formData.get('fullname')
     const email = formData.get('email')
     const password = formData.get('password')
-
-    if (password !== confirmPass) {
-      console.log('As senhas não são iguais')
-      return
-    }
 
     try {
       await api.post('/users/create', {
@@ -26,13 +14,8 @@ export default function Form() {
         email,
         password,
       })
-
-      setFullname('')
-      setEmail('')
-      setPassword('')
-      setConfirmPass('')
     } catch (error) {
-      console.log('Bad request')
+      console.log('Bad request', error)
     }
 
     redirect('/')
@@ -45,8 +28,6 @@ export default function Form() {
           required
           type="text"
           name="fullname"
-          value={fullname}
-          onChange={(e) => setFullname(e.target.value)}
           placeholder="Digite seu nome completo"
           className="bg-transparent border-b border-zinc-600 px-2 py-1 placeholder:text-zinc-500 placeholder:text-xs w-full text-sm"
         />
@@ -54,8 +35,6 @@ export default function Form() {
           required
           type="email"
           name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
           placeholder="exemplo@email.com"
           className="bg-transparent border-b border-zinc-600 px-2 py-1 placeholder:text-zinc-500 placeholder:text-xs w-full text-sm"
         />
@@ -63,8 +42,6 @@ export default function Form() {
           required
           type="password"
           name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
           placeholder="Digite sua senha"
           className="bg-transparent border-b border-zinc-600 px-2 py-1 placeholder:text-zinc-500 placeholder:text-xs w-full text-sm"
         />
@@ -72,10 +49,6 @@ export default function Form() {
           required
           type="password"
           name="confirmpass"
-          value={confirmPass}
-          onChange={(e) => {
-            setConfirmPass(e.target.value)
-          }}
           placeholder="Confirme sua senha"
           className="bg-transparent border-b border-zinc-600 px-2 py-1 placeholder:text-zinc-500 placeholder:text-xs w-full text-sm"
         />
