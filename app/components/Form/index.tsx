@@ -15,7 +15,7 @@ export default function Form() {
         password,
       })
     } catch (error) {
-      console.log('Bad request', error)
+      return
     }
 
     redirect('/')

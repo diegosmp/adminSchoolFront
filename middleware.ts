@@ -10,6 +10,7 @@ export async function middleware(req: NextRequest) {
   }
 
   const token = getCookieServer()
+
   if (pathname.startsWith('/dashboard')) {
     if (!token) {
       return NextResponse.redirect(new URL('/', req.url))
@@ -20,7 +21,6 @@ export async function middleware(req: NextRequest) {
     if (!isValidate) {
       return NextResponse.redirect(new URL('/', req.url))
     }
+    return NextResponse.next()
   }
-
-  return NextResponse.next()
 }
